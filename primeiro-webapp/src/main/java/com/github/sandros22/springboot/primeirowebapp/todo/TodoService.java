@@ -10,13 +10,21 @@ import org.springframework.stereotype.Service;
 public class TodoService {
 
 	private static List<Todo> todos = new ArrayList<>();
+
+	private static int todosCount = 0;
+
 	static {
-		todos.add(new Todo(1, "Sandro", "Aprender Angular", LocalDate.now().plusYears(1), false));
-		todos.add(new Todo(2, "Sandro", "Aprender Docker", LocalDate.now().plusYears(1), false));
-		todos.add(new Todo(3, "Sandro", "Aprender AWS", LocalDate.now().plusYears(1), false));
+		todos.add(new Todo(++todosCount, "Sandro", "Aprender Angular", LocalDate.now().plusYears(1), false));
+		todos.add(new Todo(++todosCount, "Sandro", "Aprender Docker", LocalDate.now().plusYears(1), false));
+		todos.add(new Todo(++todosCount, "Sandro", "Aprender AWS", LocalDate.now().plusYears(1), false));
 	}
 
 	public List<Todo> findByUsername(String username) {
 		return todos;
+	}
+
+	public void addTodo(String username, String description, LocalDate targetDate, boolean done) {
+		Todo todo = new Todo(++todosCount, username, description, targetDate, done);
+		todos.add(todo);
 	}
 }
